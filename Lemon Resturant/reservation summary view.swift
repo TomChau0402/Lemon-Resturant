@@ -1,32 +1,35 @@
 //
 
-
 import SwiftUI
 
-struct reservation_summary_view: View {
+struct ReservationSummaryView: View {
     @Binding var name: String
-    @Binding var date: String
-    @Binding var guest: Int
-    @Binding var allergyNote: String
+    @Binding var date: Date
+    @Binding var guests: Int
+    @Binding var allergyNotes: String
+    
     var body: some View {
-        VStack(alignment:.leading, spacing: 10){
-            Text("Reservations Summary").font(.title)
-            Text("Name\(name)")
-            Text("Date\(date)")
-            Text("Guest #:\(guest)")
-            Text ("Allergies: \(allergyNote)")
+        VStack(alignment: .leading, spacing: 10){
+            Text("Reservation Summary").font(.title)
+            
+            Text("Name \(name)")
+            Text("Date \(formattedDate(date:date))")
+            Text("Guest #: \(guests)")
+            Text("Allergies: \(allergyNotes)")
             
         }
     }
+    
     func formattedDate(date: Date)->String{
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        formatter.timeStyle = .none
         formatter.timeStyle = .short
+        
         return formatter.string(from: date)
     }
+    
 }
 
 //#Preview {
-  //  reservation_summary_view()
-
+//    ReservationSummaryView()
+//}

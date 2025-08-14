@@ -2,7 +2,7 @@
 //  Lemon_ResturantTests.swift
 //  Lemon ResturantTests
 //
-//  Created by Amy Vu on 8/12/25.
+//  
 //
 
 import Testing

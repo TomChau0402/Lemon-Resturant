@@ -2,7 +2,7 @@
 //  Lemon_ResturantUITests.swift
 //  Lemon ResturantUITests
 //
-//  Created by Amy Vu on 8/12/25.
+//  
 //
 
 import XCTest

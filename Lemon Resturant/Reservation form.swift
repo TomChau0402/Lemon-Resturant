@@ -1,54 +1,57 @@
-//
-//  Reservation form.swift
-//  Lemon Resturant
-//
-//  Created by Amy Vu on 8/12/25.
-//
+
 
 import SwiftUI
 
 struct ReservationForm: View {
-    @State private var userName: String = ""
-    @State private var guestCount: Int = 0
-    @State private var reservationDate = Date()
-    @State private var allergyNote: String = ""
-    @State private var showSummary:Bool = false
+    // variable section
+    @State var userName: String = ""
+    @State var guestCount: Int = 0
+    @State var reservationDate = Date()
+    @State var allergyNotes = ""
+    @State var showSummary = false
     
     var body: some View {
-        NavigationStack {
-            Form {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            Form{
                 Section(header: Text("Reservation Details")){
-                    TextField("Insert your Name", text:$userName)
+                    TextField("Insert your name", text:$userName)
                     
                     if userName.isEmpty {
-                        Text("please enter your name")
+                        Text("Please insert your name")
                             .foregroundColor(.red)
                             .font(.caption)
                     }
-                    Stepper("Guests: \(guestCount)", value:$guestCount, in: 1...10)
                     
+                    Stepper("Guest: \(guestCount)", value:$guestCount, in: 1...10)
                     
                     if guestCount > 5 {
-                        Text("For large parties ,we will contact you")
-                            .foregroundColor(.blue)
+                        Text("For large parties, we will contact you")
+                            .foregroundColor(.yellow)
                             .font(.caption)
                     }
-                    DatePicker("Date", selection: $reservationDate,
-                               displayedComponents: [.date, .hourAndMinute])
-                    TextField("Any allergies?", text: $allergyNote)
-                    Button("confirm Reservation"){
-                        if !userName.isEmpty {
+                    DatePicker("Date", selection: $reservationDate, displayedComponents: [.date, .hourAndMinute])
+                    TextField("Allergy Notes", text: $allergyNotes)
+                    
+                    Button("Confirm Reservation"){
+                        if !userName.isEmpty { // if not empty
                             showSummary = true
                         }
-                }
+                        
+                    }
                     .disabled(userName.isEmpty)
-                    .navigationDestination(, dest
+                    .navigationDestination(isPresented: $showSummary){
+                        ReservationSummaryView(
+                            name:$userName,
+                            date: $reservationDate,
+                            guests:$guestCount,
+                            allergyNotes:$allergyNotes
+                        )
+                    }
+                }
+                
             }
         }
         .navigationTitle("Book a table")
     }
-}
-
-#Preview {#imageLiteral(resourceName: "Screenshot 2025-08-12 at 6.43.29 PM.png")
-    ReservationForm()
 }

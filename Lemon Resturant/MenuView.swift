@@ -13,9 +13,11 @@ struct MenuView: View {
         "Pasta":12.99,
         "Salad":7.99,
         "Chicken Wings":14.99,
-        "Steak":24.99
+        "Steak":24.99,
+        "Chocolate Cake": 5.75
     ]
-    @State private var showMessage = false
+    @State private var showMessage:Bool = false
+    @State private var showThankYouMessage:Bool = false
     
     var body: some View {
         VStack {
@@ -38,7 +40,13 @@ struct MenuView: View {
                         .font(.title3)
                         .foregroundColor(.green)
                 }
-                
+               Toggle("Show thank you message", isOn: $showThankYouMessage)
+                        .padding()
+                    
+                if showThankYouMessage{
+                    Text("Thanks for visiting Little Lemon")
+                        .italic()
+                        .foregroundColor(.blue)}
             }
         }
         List {
@@ -49,6 +57,11 @@ struct MenuView: View {
                             .font(.headline)
                         Text("$\(price, specifier: "%.2f")")
                             .foregroundColor(.secondary)
+                        
+                        if price < 7 {
+                            Text("\(price, specifier: "%.2f")")
+                                .foregroundColor(.green)
+                        }
                     }
                     
                 }

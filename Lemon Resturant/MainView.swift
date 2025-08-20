@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @State private var isLoggedIn = true
     @State private var userName = ""
     

@@ -2,22 +2,63 @@
 //  MenuView.swift
 //  Lemon Resturant
 //
-//  Created by Amy Vu on 8/14/25.
+// 
 //
 
 import SwiftUI
 
 struct MenuView: View {
-    let menuItems = [
-        "Pizza":9.99,
-        "Pasta":12.99,
-        "Salad":7.99,
-        "Chicken Wings":14.99,
-        "Steak":24.99,
-        "Chocolate Cake": 5.75
-    ]
+    /* let menuItems = [
+     "Pizza":9.99,
+     "Pasta":12.99,
+     "Salad":7.99,
+     "Chicken Wings":14.99,
+     "Steak":24.99,
+     "Chocolate Cake": 5.75
+     ]
+     */
+    
     @State private var showMessage:Bool = false
     @State private var showThankYouMessage:Bool = false
+    @State private var showDessert:Bool = false
+    
+    
+    let menuItems = [
+        MenuItem(
+            name: "Pizza",
+            description: "cheesy and hot",
+            price: 9.99
+        ),
+        MenuItem(
+            name: "Steak",
+            description: "delicious and juicy",
+            price: 4.99
+        ),
+        MenuItem(
+            name: "Pasta",
+            description: "tasty and soft",
+            price: 12.99
+        ),
+        MenuItem(
+            name: "Salad",
+            description: "refreshing and healthy",
+            price: 5.99
+        ),
+        MenuItem(
+            name: "Ramen",
+            description: "hot and spicy",
+            price: 4.99
+        ),
+        MenuItem(
+            name: "Tacos",
+            description: "tasty and crunchy",
+            price: 12.99
+        ),
+        MenuItem(
+            name: "Lasagna",
+            description: "Fatty and non-healthy",
+            price: 5.99)
+]
     
     var body: some View {
         VStack {
@@ -40,16 +81,30 @@ struct MenuView: View {
                         .font(.title3)
                         .foregroundColor(.green)
                 }
-               Toggle("Show thank you message", isOn: $showThankYouMessage)
-                        .padding()
-                    
+                Toggle("Show thank you message", isOn: $showThankYouMessage)
+                    .padding()
+                
                 if showThankYouMessage{
                     Text("Thanks for visiting Little Lemon")
                         .italic()
-                        .foregroundColor(.blue)}
+                    .foregroundColor(.blue)}
+            }
+            Button("View Desserts") {
+            }
+            .padding()
+            .background(.green.opacity(0.4))
+            .cornerRadius(12)
+            .foregroundColor(.black)
+            
+            .sheet(isPresented: $showDessert){
+                DessertView()
             }
         }
-        List {
+        
+        List(menuItems) { item in
+            MenuItemView(item: item)
+        }
+       /*List {
             ForEach(menuItems.sorted(by: {$0.key > $1.key}), id:\.key){(name, price) in
                 HStack {
                     VStack(alignment: .leading) {
@@ -65,12 +120,12 @@ struct MenuView: View {
                     }
                     
                 }
-            }
+            }*/
             
         }
     }
 
-    }
+    
 
 
 #Preview {

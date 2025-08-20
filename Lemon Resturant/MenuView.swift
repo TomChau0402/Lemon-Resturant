@@ -17,6 +17,23 @@ struct MenuView: View {
      "Chocolate Cake": 5.75
      ]
      */
+    /*
+     
+     Computed Properties
+    Computed property is a property that doesnt store a value directly.
+     Instead it calculates its value every time it's accessd, using customer logic you define.
+     
+     Syntax
+     
+     var propertyName: Type {
+     return a calculated value
+     }
+     */
+    
+    
+    var sortedMenuItems: [MenuItem] {
+        menuItems.sorted {$0.price < $1.price}
+    }
     
     @State private var showMessage:Bool = false
     @State private var showThankYouMessage:Bool = false
@@ -101,7 +118,8 @@ struct MenuView: View {
             }
         }
         
-        List(menuItems) { item in
+     //   List(menuItems) { item in
+        List(sortedMenuItems){ item in
             MenuItemView(item: item)
         }
        /*List {

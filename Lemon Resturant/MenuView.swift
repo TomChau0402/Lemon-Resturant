@@ -34,6 +34,26 @@ struct MenuView: View {
     var sortedMenuItems: [MenuItem] {
         menuItems.sorted {$0.price < $1.price}
     }
+    // Assignment 3
+    
+    var premiumCount:Int {
+        let premiumFilter = menuItems.filter {item in
+            item.price >= 10}
+        return premiumFilter.count
+    }
+    
+    var regularCount:Int {
+        let regularFilter = menuItems.filter {item in
+            item.price < 10}
+        return regularFilter.count
+    }
+    
+    var totalPrice:Double {
+        let totalPrice = menuItems.reduce(0.0) {accumulator, item in
+            accumulator + item.price
+        }
+        return totalPrice
+    }
     
     @State private var showMessage:Bool = false
     @State private var showThankYouMessage:Bool = false
@@ -64,17 +84,17 @@ struct MenuView: View {
         MenuItem(
             name: "Ramen",
             description: "hot and spicy",
-            price: 4.99
+            price: 14.99
         ),
         MenuItem(
             name: "Tacos",
             description: "tasty and crunchy",
-            price: 12.99
+            price: 13.99
         ),
         MenuItem(
             name: "Lasagna",
             description: "Fatty and non-healthy",
-            price: 5.99)
+            price: 15.99)
 ]
     
     var body: some View {
@@ -122,6 +142,12 @@ struct MenuView: View {
         List(sortedMenuItems){ item in
             MenuItemView(item: item)
         }
+        
+    // Assignment 3
+        Text("Premium: \(premiumCount) | Regular: \(regularCount) | total: $\(totalPrice, specifier:"%.2f)")")
+            .padding()
+            .background(.yellow.opacity(0.2))
+            .cornerRadius(12)
        /*List {
             ForEach(menuItems.sorted(by: {$0.key > $1.key}), id:\.key){(name, price) in
                 HStack {

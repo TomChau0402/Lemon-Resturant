@@ -54,6 +54,14 @@ struct MenuView: View {
         }
         return totalPrice
     }
+    // Assignment 3
+
+    var averagePrice: Double {
+        let prices = menuItems.map { item in
+            item.price}
+        let total = prices.reduce(0.0) { accumulator, price in accumulator + price}
+        let average = total / Double(prices.count)
+        return average}
     
     @State private var showMessage:Bool = false
     @State private var showThankYouMessage:Bool = false
@@ -108,6 +116,11 @@ struct MenuView: View {
             }
             .padding()
             
+            Text("Average price: $\(averagePrice, specifier: "%.2f")")
+                .foregroundColor(.gray)
+                .font(.title3)
+            
+                 
             //VStack
             VStack(spacing:24) {
                 Toggle("Show a special text", isOn: $showMessage)
